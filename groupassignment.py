@@ -51,3 +51,7 @@ if generate_pitch:
         )
         st.markdown('**Here is the elevator pitch:**')
         st.write(elevator_pitch)
+
+with st.expander("How we could do it", expanded=False):
+     st.chat_input("Please tell me which kind of bedtime story you'd like")
+     st.text("Based on the input into this field, the AI will execute its task")
