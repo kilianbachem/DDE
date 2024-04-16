@@ -9,8 +9,9 @@ st.markdown("This app generates an elevator pitch for your startup idea. Please 
 api_key = st.text_input("OpenAI API Key", type="password")
 job_description = st.text_input("Enter the Job-to-be-done")
 generate_pitch = st.button("Generate Elevator Pitch")
-st.markdown("See the generated elevator pitch below:")
+st.caption("Powered by OpenAI's GPT-3")
 st.divider()
+st.markdown("See the generated elevator pitch below:")
 
 def create_prompt(system_description, human_description, content):
     system_prompt = SystemMessagePromptTemplate.from_template(system_description)
