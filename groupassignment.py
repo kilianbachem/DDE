@@ -22,7 +22,7 @@ def create_prompt(system_description, human_description, content):
     return chat_api.invoke(request).content
 
 if generate_pitch:
-    # Identify the pain point
+    # Identify the pain point # Todo - add chat.stream to have a typewriter effect
     with st.spinner("Identifying the pain point..."):
         hardest_part = create_prompt(
             system_description="You are an expert in identifying the hardest part of a job. Provide the hardest part of this job.",
