@@ -7,7 +7,9 @@ st.title("Elevator Pitch Generator")
 st.markdown("This app generates an elevator pitch for your startup idea. Please enter your startup idea and click the button to generate the elevator pitch.")
 
 api_key = st.text_input("OpenAI API Key", type="password")
-job_description = st.chat_input("Enter the Job-to-be-done")
+
+# Todo - Replace text_input with chat_input
+job_description = st.text_input("Enter the Job-to-be-done")
 generate_pitch = st.button("Generate Elevator Pitch")
 st.caption("Powered by OpenAI's GPT-3")
 st.divider()
