@@ -35,7 +35,6 @@ if generate_pitch:
         st.write(hardest_part)
 
     # Create the value proposition
-    # Todo - add test line
     with st.spinner("Creating the value proposition..."):
         value_proposition = create_prompt(
             system_description="Transform the hardest part of a job into a value proposition.",
