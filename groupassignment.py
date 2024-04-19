@@ -3,7 +3,7 @@
 import streamlit as st
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
-import time
+# import time * This import is not used in the current implementation, but can be used to create a typewriter effect
 
 # Setup Streamlit interface for user input
 st.title("Elevator Pitch Generator")
@@ -13,14 +13,14 @@ api_key = st.text_input("OpenAI API Key", type="password")
 
 # Todo - Replace text_input with chat_input
 user_input = st.chat_input("Enter the Job-to-be-done")
-# generate_pitch = st.button("Generate Elevator Pitch")
+# generate_pitch = st.button("Generate Elevator Pitch") * Removed this button in favor of the chat_input function above
 st.caption("Powered by OpenAI's GPT-3")
 st.divider()
 st.markdown("See the generated elevator pitch below:")
 
-# Function that proofs if the entered key is a valid OpenAI API key
 # Todo - check if it is better to have the "official" error message from OpenAI
 # Todo - fix bug that the API key is displayed as invaild eventhough it is valid
+# Function that proofs if the entered key is a valid OpenAI API key
 # def test_api_key(api_key):
 #     """ Function to test if the provided API key is valid by making a simple API call. """
 #     try:
@@ -46,15 +46,18 @@ def create_prompt(system_description, human_description, content):
     chat_api = ChatOpenAI(api_key=api_key)
     return chat_api.invoke(request).content
 
-def typewriter_effect(text):
-    output = st.empty()
-    for i in range(len(text) + 1):
-        output.text(text[:i])
-        time.sleep(0.05)  # Adjust typing speed here
+# Note: Created this for a typewriter effect, but it is not working properly as text is not broken at line breaks
+# def typewriter_effect(text):
+#     output = st.empty()
+#     for i in range(len(text) + 1):
+#         output.text(text[:i])
+#         time.sleep(0.05)  # Adjust typing speed here
 
 if user_input:
-    # if test_api_key(api_key):
-    # Identify the pain point # Todo - add chat.stream to have a typewriter effect
+    # if test_api_key(api_key): * This function is not used in the current implementation, but can be used to test the API key
+    # Identify the pain point
+    # Todo - add chat.stream to have a typewriter effect
+    # ? Currently with chat.stream, already generated text is displayed repatedly before the new text is generated. How to fix this?
     with st.spinner("Identifying the pain point..."):
         hardest_part = create_prompt(
             system_description="You are an expert in identifying the hardest part of a job to be dobe. The user will give you a job-to-be-done and you need to identify the hardest part of the job-to-be-done. Provide the hardest part of this job.",
@@ -62,7 +65,7 @@ if user_input:
             content=user_input
         )
         st.markdown('**The hardest part of the job:**')
-        typewriter_effect(hardest_part)
+        st.write(hardest_part)
 
     # Create the value proposition
     with st.spinner("Creating the value proposition..."):
@@ -72,7 +75,7 @@ if user_input:
             content=hardest_part
         )
         st.markdown('**The value proposition:**')
-        typewriter_effect(value_proposition)
+        st.write(value_proposition)
 
     # Generate the elevator pitch
     with st.spinner("Generating the elevator pitch..."):
@@ -82,4 +85,4 @@ if user_input:
             content=value_proposition
         )
         st.markdown('**Here is the elevator pitch:**')
-        typewriter_effect(elevator_pitch)
+        st.write(elevator_pitch)
