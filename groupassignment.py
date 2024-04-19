@@ -1,5 +1,8 @@
 
 # Todo - LangChainDeprecationWarning: Importing LLMs from langchain is deprecated. Importing from langchain will no longer be supported as of langchain==0.2.0. Please import from langchain-community instead: `from langchain_community.llms import OpenAI` To install langchain-community run `pip install -U langchain-community`.
+
+# Todo - add Chat history fuctionality to the code - the AI should also be able to remember the conversation history and respond accordingly (follow-up questions, etc.)
+
 import streamlit as st
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
@@ -9,10 +12,10 @@ from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, H
 st.title("Elevator Pitch Generator")
 st.markdown("This app generates an elevator pitch for your startup idea. Please enter your startup idea and click the button to generate the elevator pitch.")
 
+# Define API Key and user input field
 api_key = st.text_input("OpenAI API Key", type="password")
-
-# Todo - Replace text_input with chat_input
 user_input = st.chat_input("Enter the Job-to-be-done")
+
 # generate_pitch = st.button("Generate Elevator Pitch") * Removed this button in favor of the chat_input function above
 st.caption("Powered by OpenAI's GPT-3")
 st.divider()
@@ -46,7 +49,7 @@ def create_prompt(system_description, human_description, content):
     chat_api = ChatOpenAI(api_key=api_key)
     return chat_api.invoke(request).content
 
-# Note: Created this for a typewriter effect, but it is not working properly as text is not broken at line breaks
+# ? Created this for a typewriter effect, but it is not working properly as text is not broken at line breaks, maybe chat_stream would be better
 # def typewriter_effect(text):
 #     output = st.empty()
 #     for i in range(len(text) + 1):
@@ -55,9 +58,10 @@ def create_prompt(system_description, human_description, content):
 
 if user_input:
     # if test_api_key(api_key): * This function is not used in the current implementation, but can be used to test the API key
-    # Identify the pain point
     # Todo - add chat.stream to have a typewriter effect
     # ? Currently with chat.stream, already generated text is displayed repatedly before the new text is generated. How to fix this?
+    
+    # Identify the pain point
     with st.spinner("Identifying the pain point..."):
         hardest_part = create_prompt(
             system_description="You are an expert in identifying the hardest part of a job to be dobe. The user will give you a job-to-be-done and you need to identify the hardest part of the job-to-be-done. Provide the hardest part of this job.",
