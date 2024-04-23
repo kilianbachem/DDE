@@ -9,6 +9,7 @@ from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, H
 # import time * This import is not used in the current implementation, but can be used to create a typewriter effect
 
 # Setup Streamlit interface for user input
+st.set_page_config(page_title="Value Proposition Optimizer", page_icon="🤖")
 st.title("Elevator Pitch Generator")
 st.markdown("This app generates an elevator pitch for your startup idea. Please enter your startup idea and click the button to generate the elevator pitch.")
 
@@ -19,7 +20,6 @@ user_input = st.chat_input("Enter the Job-to-be-done")
 # generate_pitch = st.button("Generate Elevator Pitch") * Removed this button in favor of the chat_input function above
 st.caption("Powered by OpenAI's GPT-3")
 st.divider()
-st.markdown("See the generated elevator pitch below:")
 
 # Todo - check if it is better to have the "official" error message from OpenAI
 # Todo - fix bug that the API key is displayed as invaild eventhough it is valid
@@ -57,10 +57,10 @@ def create_prompt(system_description, human_description, content):
 #         time.sleep(0.05)  # Adjust typing speed here
 
 if user_input:
-    # if test_api_key(api_key): * This function is not used in the current implementation, but can be used to test the API key
+    # if test_api_key(api_key): # * This function is not used in the current implementation, but can be used to test the API key
     # Todo - add chat.stream to have a typewriter effect
     # ? Currently with chat.stream, already generated text is displayed repatedly before the new text is generated. How to fix this?
-    
+    st.markdown("See the generated elevator pitch below:")
     # Identify the pain point
     with st.spinner("Identifying the pain point..."):
         hardest_part = create_prompt(
